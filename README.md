@@ -5,11 +5,11 @@ Operation Constraints and Parameter Settings of Distribution Network
 ### Substation node constraints
 
 $$
-P^\text{sub,min}\leq P^\text{sub}_{i,t}\leq P^\text{sub,max},\forall i\in \mathcal{P}_\text{sub},\forall t
+P^\text{sub,min}\leq P_{i,t}^\text{sub}\leq P^\text{sub,max},\forall i\in \mathcal{P}_\text{sub},\forall t
 $$
 
 $$
-Q^\text{sub,min}\leq Q^\text{sub}_{i,t}\leq Q^\text{sub,max},\forall i\in \mathcal{P}_\text{sub},\forall t
+Q^\text{sub,min}\leq Q_{i,t}^\text{sub}\leq Q^\text{sub,max},\forall i\in \mathcal{P}_\text{sub},\forall t
 $$
 
 $$
@@ -20,7 +20,7 @@ $$
 \sigma^\text{min}\leq \sigma_{i,t}\leq \sigma^\text{max},\forall i\in \mathcal{P}_\text{sub},\forall t
 $$
 
-where $Q^\text{sub}_{i,t}$ represents the reactive power output by the substation node at time *t*; $P^\text{sub,min}/P^\text{sub,max}$ and $Q^\text{sub,min}/Q^\text{sub,max}$ denote the upper/lower limits of the active power output and the upper/lower limits of the reactive power output of the substation node, respectively; $\nu_{i,t}$ and $\sigma_{i,t}$ stand for the square of the voltage amplitude at node *i* and the tap position of the on-load tap changer (OLTC) at time *t*, respectively; $\Delta V$, $V_{i,\text{rated}}$, and $\sigma^\text{min}/\sigma^\text{max}$ refer to the voltage variation per tap of the OLTC, the rated voltage, and the upper/lower limits of the tap position, respectively.
+where $Q_{i,t}^\text{sub}$ represents the reactive power output by the substation node at time *t*; $P^\text{sub,min}/P^\text{sub,max}$ and $Q^\text{sub,min}/Q^\text{sub,max}$ denote the upper/lower limits of the active power output and the upper/lower limits of the reactive power output of the substation node, respectively; $\nu_{i,t}$ and $\sigma_{i,t}$ stand for the square of the voltage amplitude at node *i* and the tap position of the on-load tap changer (OLTC) at time *t*, respectively; $\Delta V$, $V_{i,\text{rated}}$, and $\sigma^\text{min}/\sigma^\text{max}$ refer to the voltage variation per tap of the OLTC, the rated voltage, and the upper/lower limits of the tap position, respectively.
 
 ### Distributed Generator Constraints:
 
@@ -36,14 +36,12 @@ $$
 P_{i,t}^\text{dg}\tan\varphi_i^\text{dg,min}\leq Q_{i,t}^\text{dg}\leq P_{i,t}^\text{dg}\tan\varphi_i^\text{dg,max},\forall i\in \mathcal{P}_\text{dg},\forall t
 $$
 
-
-
 where $P_i^\text{dg,max}$ and $RU_i^\text{dg}/RD_i^\text{dg}$ represent the upper limit of active power and the upper/lower ramp limits of the distributed generator (DG) at node *i*, respectively; $Q_{i,t}^\text{dg}$ denotes the reactive power of the DG; $\varphi_i^\text{dg,max}/\varphi_i^\text{dg,min}$ stand for the upper/lower limits of the power factor angle of the DG.
 
 ### Photovoltaic Equipment Constraints:
 
 $$
-P^\text{pv}_{i,t}+P^\text{pv,ct}_{i,t}=P^\text{pv,max}_{i,t}
+P_{i,t}^\text{pv}+P_{i,t}^\text{pv,ct}=P^\text{pv,max}_{i,t}
 $$
 
 $$
@@ -55,7 +53,7 @@ where $P_{i,t}^\text{pv}$ and $P_{i,t}^\text{pv,max}$ represent the actual activ
 ### Wind Turbine Constraints:
 
 $$
-P^\text{w}_{i,t}+P^\text{w,ct}_{i,t}=P^\text{w,max}_{i,t}
+P_{i,t}^\text{w}+P_{i,t}^\text{w,ct}=P^\text{w,max}_{i,t}
 $$
 
 $$
@@ -111,29 +109,22 @@ where $V_{i,\text{max}}/V_{i,\text{min}}$ and $I_{ij,\text{max}}$ represent the 
 ### AC Power Flow Constraints
 
 $$
-\sum\limits_{j\in {{\varsigma }_{i}}}{{{P}_{ij,t}}}=P_{i,t}^{\text{sub}}+P_{i,t}^{\text{dg}}+P_{i,t}^{\text{pv}}+P_{i,t}^{\text{w}}-P_{i,t}^{\text{ess}}-P_{i,t}^{\text{cs}}-P_{i,t}^{\text{ld}}\left( 1-\delta _{i,t}^{\text{ct}} \right)+\sum\limits_{k\in {{\vartheta }_{i}}}{\left( {{P}_{ki,t}}-{{R}_{ki}}{\ell_{ki,t}} \right)},\forall i\in {{\mathcal{P}}_{\text{N}}},\forall t \\
+\sum\limits_{j\in \varsigma_{i}} P_{ij,t} = P_{i,t}^{\text{sub}} + P_{i,t}^{\text{dg}} + P_{i,t}^{\text{pv}} + P_{i,t}^{\text{w}} - P_{i,t}^{\text{ess}} - P_{i,t}^{\text{cs}} - P_{i,t}^{\text{ld}} \left(1-\delta_{i,t}^{\text{ct}}\right) + \sum\limits_{k\in \vartheta_{i}} \left( P_{ki,t} - R_{ki} \ell_{ki,t} \right),\quad \forall i\in \mathcal{P}_{\text{N}},\forall t
 $$
 
 $$
-\sum\limits_{j\in {{\varsigma }_{i}}}{{{Q}_{ij,t}}}=Q_{i,t}^{\text{sub}}+Q_{i,t}^{\text{dg}}+Q_{i,t}^{\text{w}}+Q_{i,t}^{\text{svc}}-Q_{i,t}^{\text{ld}}\left( 1-\delta _{i,t}^{\text{ct}} \right)+\sum\limits_{k\in {{\vartheta }_{i}}}{\left( {{Q}_{ki,t}}-{{X}_{ki}}{\ell_{ki,t}} \right)},\forall i\in {{\mathcal{P}}_{\text{N}}},\forall t
+\sum\limits_{j\in \varsigma_{i}} Q_{ij,t} = Q_{i,t}^{\text{sub}} + Q_{i,t}^{\text{dg}} + Q_{i,t}^{\text{w}} + Q_{i,t}^{\text{svc}} - Q_{i,t}^{\text{ld}} \left(1-\delta_{i,t}^{\text{ct}}\right) + \sum\limits_{k\in \vartheta_{i}} \left( Q_{ki,t} - X_{ki} \ell_{ki,t} \right),\quad \forall i\in \mathcal{P}_{\text{N}},\forall t
 $$
 
 $$
-{{\nu }_{i,t}}-{{\nu }_{j,t}}=2\left( {{R}_{ij}}{{P}_{ij,t}}+{{X}_{ij}}{{Q}_{ij,t}} \right)-\left( R_{ij}^{2}+X_{ij}^{2} \right){\ell_{ij,t}},\forall ij\in {{\mathcal{P}}_{\text{line}}},\forall t
+\nu_{i,t} - \nu_{j,t} = 2 \left( R_{ij} P_{ij,t} + X_{ij} Q_{ij,t} \right) - \left( R_{ij}^{2} + X_{ij}^{2} \right) \ell_{ij,t},\quad \forall ij\in \mathcal{P}_{\text{line}},\forall t
 $$
 
 $$
-{\ell_{ij,t}}{{\nu }_{i,t}}-P_{ij,t}^{2}-Q_{ij,t}^{2}=0,\forall ij\in {{\mathcal{P}}_{\text{line}}},\forall t
+\ell_{ij,t} \nu_{i,t} - P_{ij,t}^{2} - Q_{ij,t}^{2} = 0,\quad \forall ij\in \mathcal{P}_{\text{line}},\forall t
 $$
 
-where ${{P}_{ij,t}}$, ${{Q}_{ij,t}}$, and ${{X}_{ij}}$ represent the active power, reactive power, and reactance of the *ij* line, respectively; ${\varsigma }_{i}$ and ${\vartheta }_{i}$ denote the set of child nodes and parent nodes of node *i*, respectively; and $Q_{i,t}^{\text{ld}}$ stands for the reactive power of the load at node *i* at time *t*. Through second-order cone relaxation, the above formula can be transformed into:
-$$
-{\ell_{ij,t}}+{{\nu }_{i,t}}\ge {{\left\| \begin{matrix}
-   2{{P}_{ij,t}}  \\
-   2{{Q}_{ij,t}}  \\
-   {\ell_{ij,t}}-{{\nu }_{i,t}}  \\
-\end{matrix} \right\|}_{2}},\forall ij\in {{\mathcal{P}}_{\text{line}}},\forall t\
-$$
+where $P_{ij,t}$, $Q_{ij,t}$, and $X_{ij}$ represent the active power, reactive power, and reactance of the $ij$ line, respectively; $\varsigma_{i}$ and $\vartheta_{i}$ denote the set of child nodes and parent nodes of node $i$, respectively; and $Q_{i,t}^{\text{ld}}$ stands for the reactive power of the load at node $i$ at time $t$. 
 
 ## Parameters of Distribution Network Resources
 
@@ -146,8 +137,8 @@ $$
 | Substation Capacity (MVA)                                    | 10     | Minimum Value of Static Var Compensator (Mvar)               | -0.2  |
 | Maximum Adjustment Times of On-load Tap Changer              | 6      | Curtailment Price of Photovoltaic Power (CNY/(MWh))          | 100   |
 | Tap Position of On-load Tap Changer                          | 12     | Curtailment Price of Wind Power (CNY/(MWh))                  | 100   |
-| Upper Limit of Active Power of Distributed Generator (MW)    | 0.5    | Load Shedding Price (CNY/(MWh))                              | 500   |
-| Upper Limit of Reactive Power of Distributed Generator (Mvar) | 0.25   | Grid Price (/(MWh))                                          | 50    |
+| Upper Limit of Active Power of Distributed Generator (MW)    | 0.5    | Curtailment Price of Load (CNY/(MWh))                           | 500   |
+| Upper Limit of Reactive Power of Distributed Generator (Mvar) | 0.25   | Network Loss Price (/(MWh))                                          | 50    |
 | Upper Limit of Ramp Rate of Distributed Generator (MW)       | 0.15   | Time Granularity of Equipment Power in Distribution Network (min) | 15    |
 | Upper Limit of Charging and Discharging Power of Energy Storage System (MW) | 0.3    | Time Granularity of Pricing Strategy of Charging Station Cooperative Alliance (h) | 1     |
 | Charging and Discharging Efficiency of Energy Storage System | 0.9381 | Total Simulation Period (h)                                  | 24    |
