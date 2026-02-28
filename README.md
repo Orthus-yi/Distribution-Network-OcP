@@ -137,7 +137,7 @@ where $P_{ij,t}$, $Q_{ij,t}$, and $X_{ij}$ represent the active power, reactive 
 | Substation Capacity (MVA)                                    | 10     | Minimum Value of Static Var Compensator (Mvar)               | -0.2  |
 | Maximum Adjustment Times of On-load Tap Changer              | 6      | Curtailment Price of Photovoltaic Power (CNY/MWh)          | 100   |
 | Tap Position of On-load Tap Changer                          | 12     | Curtailment Price of Wind Power (CNY/MWh)                  | 100   |
-| Upper Limit of Active Power of Distributed Generator (MW)    | 0.5    | Curtailment Price of Load (CNY/MWh)                           | 500   |
+| Upper Limit of Active Power of Distributed Generator (MW)    | 0.5    | Compensation price for load reduction (CNY/MWh)                           | 500   |
 | Upper Limit of Reactive Power of Distributed Generator (Mvar) | 0.25   | Network Loss Price (CNY/MWh)                                          | 50    |
 | Upper Limit of Ramp Rate of Distributed Generator (MW)       | 0.15   | Time Granularity of Equipment Power in Distribution Network (min) | 15    |
 | Upper Limit of Charging and Discharging Power of Energy Storage System (MW) | 0.3    | Time Granularity of Pricing Strategy of Charging Station Cooperative Alliance (h) | 1     |
